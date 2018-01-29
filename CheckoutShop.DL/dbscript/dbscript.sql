@@ -1,6 +1,71 @@
-﻿USE [CheckoutShop]
+﻿ALTER DATABASE [CheckoutShop] SET COMPATIBILITY_LEVEL = 110
 GO
-/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 1/27/2018 1:44:54 AM ******/
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [CheckoutShop].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [CheckoutShop] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET AUTO_CREATE_STATISTICS ON 
+GO
+ALTER DATABASE [CheckoutShop] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [CheckoutShop] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [CheckoutShop] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [CheckoutShop] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [CheckoutShop] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [CheckoutShop] SET  MULTI_USER 
+GO
+ALTER DATABASE [CheckoutShop] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [CheckoutShop] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [CheckoutShop] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [CheckoutShop] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+USE [CheckoutShop]
+GO
+/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 1/29/2018 10:15:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15,7 +80,7 @@ CREATE TABLE [dbo].[AspNetRoles](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 1/27/2018 1:44:54 AM ******/
+/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 1/29/2018 10:15:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32,7 +97,7 @@ CREATE TABLE [dbo].[AspNetUserClaims](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 1/27/2018 1:44:54 AM ******/
+/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 1/29/2018 10:15:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -50,7 +115,7 @@ CREATE TABLE [dbo].[AspNetUserLogins](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 1/27/2018 1:44:54 AM ******/
+/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 1/29/2018 10:15:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -66,7 +131,7 @@ CREATE TABLE [dbo].[AspNetUserRoles](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 1/27/2018 1:44:54 AM ******/
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 1/29/2018 10:15:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -91,7 +156,7 @@ CREATE TABLE [dbo].[AspNetUsers](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Order]    Script Date: 1/27/2018 1:44:54 AM ******/
+/****** Object:  Table [dbo].[Order]    Script Date: 1/29/2018 10:15:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -107,7 +172,7 @@ CREATE TABLE [dbo].[Order](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[OrderProduct]    Script Date: 1/27/2018 1:44:54 AM ******/
+/****** Object:  Table [dbo].[OrderProduct]    Script Date: 1/29/2018 10:15:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -124,7 +189,7 @@ CREATE TABLE [dbo].[OrderProduct](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Product]    Script Date: 1/27/2018 1:44:54 AM ******/
+/****** Object:  Table [dbo].[Product]    Script Date: 1/29/2018 10:15:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -175,6 +240,7 @@ ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_AspNetUsers]
 GO
 ALTER TABLE [dbo].[OrderProduct]  WITH CHECK ADD  CONSTRAINT [FK_OrderProduct_Order] FOREIGN KEY([OrderId])
 REFERENCES [dbo].[Order] ([Id])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[OrderProduct] CHECK CONSTRAINT [FK_OrderProduct_Order]
 GO
@@ -182,4 +248,8 @@ ALTER TABLE [dbo].[OrderProduct]  WITH CHECK ADD  CONSTRAINT [FK_OrderProduct_Pr
 REFERENCES [dbo].[Product] ([Id])
 GO
 ALTER TABLE [dbo].[OrderProduct] CHECK CONSTRAINT [FK_OrderProduct_Product]
+GO
+USE [master]
+GO
+ALTER DATABASE [CheckoutShop] SET  READ_WRITE 
 GO
